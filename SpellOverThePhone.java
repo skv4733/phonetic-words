@@ -1,13 +1,18 @@
-package com.javasans.howtodo;
+package pro.tremblay.roi.domain;
+
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Logger;
+
 
 public class SpellOverThePhone {
+    private static final Logger logger = Logger.getLogger(SpellOverThePhone.class.getSimpleName());
 
-    private Map<Character, String> natoPhoneticAlphabetMap;
-    private Map<Character, String> westernUnionAlphabetMap;
+    static Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+    private final Map<Character, String> natoPhoneticAlphabetMap;
+    private final Map<Character, String> westernUnionAlphabetMap;
 
     public SpellOverThePhone() {
         natoPhoneticAlphabetMap = new HashMap<Character, String>() {{
@@ -40,58 +45,62 @@ public class SpellOverThePhone {
         }};
 
         westernUnionAlphabetMap = new HashMap<Character, String>() {{
-            put('a',	"Adams");
-            put('b',	"Boston");
-            put('c',	"Chicago");
-            put('d',	"Denver");
-            put('e',	"Easy");
-            put('f',	"Frank");
-            put('g',	"George");
-            put('h',	"Henry");
-            put('i',	"Ida");
-            put('j',	"John");
-            put('k',	"King");
-            put('l',	"Lincoln");
-            put('m',	"Mary");
-            put('n',	"New York");
-            put('o',	"Ocean");
-            put('p',	"Peter");
-            put('q',	"Queen");
-            put('r',	"Roger");
-            put('s',	"Sugar");
-            put('t',	"Thomas");
-            put('u',	"Union");
-            put('v',	"Victor");
-            put('w',	"William");
-            put('x',	"X-ray");
-            put('y',	"Young");
-            put('z',	"Zero");
+            put('a', "Adams");
+            put('b', "Boston");
+            put('c', "Chicago");
+            put('d', "Denver");
+            put('e', "Easy");
+            put('f', "Frank");
+            put('g', "George");
+            put('h', "Henry");
+            put('i', "Ida");
+            put('j', "John");
+            put('k', "King");
+            put('l', "Lincoln");
+            put('m', "Mary");
+            put('n', "New York");
+            put('o', "Ocean");
+            put('p', "Peter");
+            put('q', "Queen");
+            put('r', "Roger");
+            put('s', "Sugar");
+            put('t', "Thomas");
+            put('u', "Union");
+            put('v', "Victor");
+            put('w', "William");
+            put('x', "X-ray");
+            put('y', "Young");
+            put('z', "Zero");
 
         }};
 
     }
 
     public static void main(String[] args) {
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter word to expand ");
-
-        String userName = myObj.nextLine();  // Read user input
-        System.out.println("Your entered " + userName + "word to expand ");
-        SpellOverThePhone spellOverThePhone = new SpellOverThePhone();
-        spellOverThePhone.spellUsingAlphabets(userName, spellOverThePhone.natoPhoneticAlphabetMap);
-        spellOverThePhone.spellUsingAlphabets(userName, spellOverThePhone.westernUnionAlphabetMap);
+        while (true){
+            logger.info("Enter word to expand ");
+            String userName = myObj.nextLine();  // Read user input
+            logger.info("Your entered " + userName + "word to expand ");
+            SpellOverThePhone spellOverThePhone = new SpellOverThePhone();
+            spellOverThePhone.spellUsingAlphabets(userName, spellOverThePhone.natoPhoneticAlphabetMap);
+            spellOverThePhone.spellUsingAlphabets(userName, spellOverThePhone.westernUnionAlphabetMap);
+        }
 
     }
 
-    public void spellUsingAlphabets(String word, Map<Character,String> map) {
+    public void spellUsingAlphabets(String word, Map<Character, String> map) {
         StringBuilder stringBuilder = new StringBuilder("Your expanded sentence   \n");
         char[] chars = word.toLowerCase().toCharArray();
+        int count = 0;
         for (char aChar : chars) {
             String s = map.get(aChar);
-            stringBuilder.append(aChar).append(" for ").append(s).append("\n");
+            count++;
+            stringBuilder.append(aChar).append("=").append(s).append("\t");
+            if (count % 8 == 0) {
+                stringBuilder.append("\n");
+            }
         }
-        System.out.println("stringBuilder = " + stringBuilder);
-
+        logger.info(stringBuilder.toString());
     }
 
 }
