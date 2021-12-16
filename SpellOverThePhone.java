@@ -1,4 +1,3 @@
-package pro.tremblay.roi.domain;
 
 
 import java.util.HashMap;
